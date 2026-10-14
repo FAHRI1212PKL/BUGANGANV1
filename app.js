@@ -1,4 +1,4 @@
-const API='';            // Isi URL endpoint database (mis. '/api/content'). Kosong = simpan di localStorage browser.
+const API='/api/content';   // Endpoint database (api/content.js). Kosongkan untuk mode localStorage saja.
 const PW='55555';
 const NAV=[['index','Beranda'],['profil','Profil'],['Data Desa',[['kependudukan','Kependudukan'],['pemerintahan','Pemerintahan'],['sarana','Sarana dan Prasarana'],['keuangan','Keuangan Desa'],['lembaga','Kelembagaan dan Keamanan']]],['berita','Kabar Desa'],['lokasi','Lokasi']];
 const MAPS=[['Desa Bugangan','Kec. Kedungwuni, Kab. Pekalongan','Desa Bugangan, Kedungwuni, Pekalongan','https://maps.app.goo.gl/cF9vpBvXscsXXpX27?g_st=ac'],['Kantor Kepala Desa','Pusat layanan pemerintahan desa','Kantor Kepala Desa Bugangan, Kedungwuni, Pekalongan','https://maps.app.goo.gl/fzH9RnDSSWK9zLou8?g_st=ac']];
