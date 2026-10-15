@@ -80,7 +80,7 @@ $('#af').innerHTML=h}
 function admin(){if(!sessionStorage.getItem('adm'))return ban('Panel Admin','Masuk untuk mengubah isi situs.')+`<section class="s0"><div class="wrap" style="max-width:480px"><div class="grp"><h2>Masuk</h2><input id="pw" type="password" placeholder="Kata sandi" autocomplete="current-password"><p id="le" style="color:#b3261e;min-height:24px"></p><button class="btn dk" id="ok">Masuk</button></div></div></section>`;
 const o=[['beranda','Beranda dan kontak'],...Object.keys(D.pages).map(k=>[k,D.pages[k].t]),['berita','Kabar desa']];
 return ban('Panel Admin','Ubah isi situs, lalu tekan Simpan perubahan.')+`<section class="s0"><div class="wrap"><div class="grp ab"><div class="ah"><select id="sel" aria-label="Pilih halaman">${o.map(x=>`<option value="${x[0]}">${esc(x[1])}</option>`).join('')}</select><div><button class="btn dk" id="sv">Simpan perubahan</button> <button class="btn od" id="ex">Ekspor</button> <button class="btn od" id="rs">Reset</button> <button class="btn od" id="lo">Keluar</button></div></div><div id="af"></div></div></div></section>`}
-function adminInit(){if(!sessionStorage.getItem('adm')){const f=()=>{if($('#pw').value===PW){sessionStorage.setItem('adm',1);boot()}else $('#le').textContent='Kata sandi salah. Coba lagi.'};$('#ok').onclick=f;$('#pw').onkeydown=e=>e.key==='Enter'&&f();return}
+function adminInit(){if(!sessionStorage.getItem('adm')){const f=()=>{if($('#pw').value===PW){sessionStorage.setItem('adm',1);boot()}else $('#le').textContent='Kata sandi salah. Coba lagi.'};$('#ok').onclick=f;$('#pw').onkeydown=e=>{if(e.key==='Enter')f()};return}
 let sel='beranda';aForm(sel);$('#sel').onchange=e=>{sel=e.target.value;aForm(sel)};
 $('#af').oninput=e=>{const p=e.target.dataset.p;if(!p)return;const a=JSON.parse(decodeURIComponent(p));let o=D;for(let i=0;i<a.length-1;i++)o=o[a[i]];o[a[a.length-1]]=e.target.type==='checkbox'?(e.target.checked?1:0):e.target.value};
 $('#af').onclick=e=>{const d=e.target.dataset,a=d.do;if(!a)return;const i=+d.i,g=+d.g,p=D.pages[sel];
@@ -99,7 +99,7 @@ document.body.innerHTML=header()+`<main>${body}</main>`+footer()+`<div class="ov
 addEventListener('scroll',()=>$('#hd').classList.toggle('sc',scrollY>40),{passive:true});
 $('#burger').onclick=()=>$('#menu').classList.toggle('on');$$('.dd>a').forEach(a=>a.onclick=e=>{e.preventDefault();a.parentNode.classList.toggle('on')});
 $$('.grp,.stat b').forEach(x=>io.observe(x));$('#ov').onclick=e=>{if(e.target.id==='ov')e.target.classList.remove('on')};
-$$('.card').forEach(c=>{c.onclick=()=>modal(+c.dataset.n);c.onkeydown=e=>e.key==='Enter'&&modal(+c.dataset.n)});
+$$('.card').forEach(c=>{c.onclick=()=>modal(+c.dataset.n);c.onkeydown=e=>{if(e.key==='Enter')modal(+c.dataset.n)}});
 if(P==='lokasi'){const set=i=>{$$('.pb').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));$('#mp').src='https://maps.google.com/maps?q='+encodeURIComponent(MAPS[i][2])+'&z=16&output=embed';$('#go').href=MAPS[i][3]};$$('.pb').forEach(b=>b.onclick=()=>set(+b.dataset.i));set(0)}
 const q=$('#q');if(q&&P!=='admin')q.oninput=()=>{const t=q.value.toLowerCase();let any=0;const sel=P==='berita'?'.card':'.grp .row';$$(sel).forEach(r=>{const m=r.textContent.toLowerCase().includes(t);r.style.display=m?'':'none';any+=m});if(P!=='berita')$$('.grp').forEach(g=>g.style.display=!t||[...g.querySelectorAll('.row')].some(r=>r.style.display!=='none')?'':'none');$('#nf').style.display=any||!t?'none':'block'};
 if(P==='admin')adminInit()}
